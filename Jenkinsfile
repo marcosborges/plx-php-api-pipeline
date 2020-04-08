@@ -1,3 +1,4 @@
+@Library('plx')
 import plx.Application
 new Application(
     [

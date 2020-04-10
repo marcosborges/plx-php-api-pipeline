@@ -51,52 +51,54 @@ new Application(
                 name : "${env.environment}",
                 destination : [
                     class : "Gcp.K8s",
-                    type : "blue-green",  
-                    nodeSelector : "main",
-                    /* schedule : "10 * * * *", */
-                    expose : [
-                        [
-                            host : null,
-                            paths : [
-                                '/' : 80
-                            ],
-                            tls : "tlsSecret"
-                        ]
-                    ],
-                    health : [
-                        path : "/healthz",
-                        port : 80,
-                        /* headers: [
+                    options : [
+                        type : "blue-green",  
+                        nodeSelector : "main",
+                        /* schedule : "10 * * * *", */
+                        expose : [
                             [
-                                name: "Custom-Header",
-                                value: "Awesome"
+                                host : null,
+                                paths : [
+                                    '/' : 80
+                                ],
+                                tls : "tlsSecret"
                             ]
-                        ], */
-                        /* exec : [ 
-                            'cat /tmp/healthy'
-                        ], */
-                        delay: [
-                            initial : 30,    
-                            interval : 60,
-                            timeout : 60
                         ],
-                        hertz : [
-                            successAt : 2,        
-                            failureAt : 4
+                        health : [
+                            path : "/healthz",
+                            port : 80,
+                            /* headers: [
+                                [
+                                    name: "Custom-Header",
+                                    value: "Awesome"
+                                ]
+                            ], */
+                            /* exec : [ 
+                                'cat /tmp/healthy'
+                            ], */
+                            delay: [
+                                initial : 30,    
+                                interval : 60,
+                                timeout : 60
+                            ],
+                            hertz : [
+                                successAt : 2,        
+                                failureAt : 4
+                            ],
                         ],
-                    ],
-                    size : [
-                        requests : [
-                            memory : "200Mi",
-                            cpu : "750m"
+                        size : [
+                            requests : [
+                                memory : "200Mi",
+                                cpu : "750m"
+                            ],
+                            requests : [
+                                memory : "200Mi",
+                                cpu : "750m"
+                            ],    
                         ],
-                        requests : [
-                            memory : "200Mi",
-                            cpu : "750m"
-                        ],    
-                    ],
-                    env : [
-                        TZ : "America/Sao_Paulo"
+                        env : [
+                            TZ : "America/Sao_Paulo"
+                        ]
                     ]
                 ]
             ],
